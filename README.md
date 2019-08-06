@@ -33,11 +33,11 @@ You can now access the server at http://localhost:8000
 
 ## Database
 
-This application uses a CSV file for importing data to the controller. The file (movies.csv) is located in root/storage.
+This application uses a CSV file for importing data to the controller. The file (movies.csv) is located in /storage/app.
 
 ## Authentication
 
-No authorization necessary for viewing and testing the API.
+No authorization necessary for viewing and testing the API. CSRF checking has been disabled for movies/create
 
 # Testing API
 
@@ -53,10 +53,11 @@ The api can now be accessed at
 | Endpoints            | Description                                   |
 |----------------------|-----------------------------------------------|
 | /movies              | get all movies		                           |
-| /movies/genre        | get movies by genre                           |
-| /movies/year         | get movies by year                            |
-| /movies/id           | get movie by id                               |
-| /movies/title        | get movies by title search                    |
+| /movies/genre/       | get movies by genre                           |
+| /movies/year/        | get movies by year                            |
+| /movies/id/          | get movie by id                               |
+| /movies/title/       | get movies by title search                    |
+| /movies/create       | create new movie                              |
 
 ### Endpoint Examples
 
@@ -72,3 +73,19 @@ http://localhost:8000/movies/title/American
 ```
 http://localhost:8000/movies/year/1994
 ```
+##### /movies/create
+```
+http://localhost:8000/movies/create
+```
+| key               | value                                |
+|-------------------|--------------------------------------|
+| title             | The 6th Day		                   |
+| year              | 2000                                 |
+| genre             | Action, Mystery, Sci-Fi, Thriller    |
+
+## To Do
+
+- check if movie already exists in database
+- apply validation to title and year
+- validate categories and comma separated values in genre
+- fix utf encoding and replacing invalid characters from original csv data

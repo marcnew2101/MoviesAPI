@@ -20,7 +20,7 @@ class MoviesImport implements ToModel, WithCustomCsvSettings
     public function getCsvSettings(): array
     {
         return [
-            'input_encoding' => 'UTF-8'
+            'input_encoding' => 'ISO-8859-1'
         ];
     }
 }
