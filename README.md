@@ -63,31 +63,31 @@ The api can now be accessed at
 ### Endpoint Examples
 
 ##### /movies/genre
-```
+
 http://localhost:8000/movies/genre/Action
-```
+
 ##### /movies/title
-```
+
 http://localhost:8000/movies/title/American
-```
+
 ##### /movies/year
-```
+
 http://localhost:8000/movies/year/1994
-```
+
 ##### /movies/create
-```
+
 http://localhost:8000/movies/create
-```
+
 | key               | value                                |
 |-------------------|--------------------------------------|
 | title             | The 6th Day		                   |
 | year              | 2000                                 |
 | genre             | Action, Mystery, Sci-Fi, Thriller    |
-```
+
 ##### /movies/remove
-```
+
 http://localhost:8000/movies/remove
-```
+
 | key               | value                 |
 |-------------------|-----------------------|
 | id                | 1		                |
