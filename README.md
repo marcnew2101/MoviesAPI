@@ -33,7 +33,7 @@ You can now access the server at http://localhost:8000
 
 ## Database
 
-This application uses a CSV file for importing data to the controller. The file (movies.csv) is located in /storage/app.
+This application uses a CSV file for importing/exporting data to/from the controller. The file (movies.csv) is located in /storage/app.
 
 ## Authentication
 
@@ -58,6 +58,7 @@ The api can now be accessed at
 | /movies/id/          | get movie by id                               |
 | /movies/title/       | get movies by title search                    |
 | /movies/create       | create new movie                              |
+| /movies/remove       | delete movie                                  |
 
 ### Endpoint Examples
 
@@ -82,9 +83,18 @@ http://localhost:8000/movies/create
 | title             | The 6th Day		                   |
 | year              | 2000                                 |
 | genre             | Action, Mystery, Sci-Fi, Thriller    |
+```
+##### /movies/remove
+```
+http://localhost:8000/movies/remove
+```
+| key               | value                 |
+|-------------------|-----------------------|
+| id                | 1		                |
 
 ## To Do
 
+- edit existing movie
 - check if movie already exists in database
 - apply validation to title and year
 - validate categories and comma separated values in genre

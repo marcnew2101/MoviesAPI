@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class MoviesController extends Controller
 {
-    public function showAll() 
+    public function show() 
     {
         $collection = Excel::toCollection(                                          // import movies.csv as collection
             new MoviesImport, 
@@ -38,7 +38,7 @@ class MoviesController extends Controller
     }
 
 
-    public function showOneById($id) 
+    public function showById($id) 
     {
         $collection = Excel::toCollection(                                          // import movies.csv as collection
             new MoviesImport, 
@@ -67,7 +67,7 @@ class MoviesController extends Controller
     }
 
 
-    public function showOneByTitle($title) 
+    public function showByTitle($title) 
     {
         $collection = Excel::toCollection(                                          // import movies.csv as collection
             new MoviesImport, 
@@ -98,7 +98,7 @@ class MoviesController extends Controller
     }
 
 
-    public function showAllByGenre($genre) 
+    public function showByGenre($genre) 
     {
         $collection = Excel::toCollection(                                          // import movies.csv as collection
             new MoviesImport, 
@@ -129,7 +129,7 @@ class MoviesController extends Controller
     }
 
 
-    public function showAllByYear($year)
+    public function showByYear($year)
     {
         $collection = Excel::toCollection(                                          // import movies.csv as collection
             new MoviesImport, 
@@ -173,7 +173,7 @@ class MoviesController extends Controller
             storage_path('/app/movies.csv')
         );
 
-        $last_id = end($old_array[0]);                                              // get id of last movie in csv import
+        $last_id = end($old_array[0]);                                              // get the id of last movie in csv import
         $new_id = $last_id[0] + 1;                                                  // add one to id found in last_id
         $year_string = strval($movieData['year']);                                  // ensure year is in string format
         $movie_year = ' (' . $year_string . ')';                                    // add parentheses around year_string
@@ -185,6 +185,32 @@ class MoviesController extends Controller
 
         array_push($old_array, $new_array);                                         // push new movie to end of original array
 
-        return Excel::store(new MoviesExport($old_array), 'movies.csv');            // save csv file with new movie now added
+        return Excel::store(new MoviesExport($old_array), 'movies.csv');            // save to csv file
+    }
+
+
+    public function remove() 
+    {
+        $movieId = request()->validate([                                            // request data from post/delete method
+            'id' => 'required'
+        ]);
+
+        $old_array = Excel::toArray(                                                // import movies.csv as array
+            new MoviesImport, 
+            storage_path('/app/movies.csv')
+        );
+
+        $data = [];                                                                 // new empty array for final data
+        foreach ($old_array as $item) {                                             // iterate over initial array from import
+            foreach ($item as $items) {                                             // iterate over nested items in array
+                if ($items[0] != intval($movieId['id'])) {                          // *filter id from post/delete method*
+                    if ($items[0] != 'movie id' and $items[0] != null) {            // skip header from csv import and null id
+                        array_push($data, $items);                                  // push movie items to data array
+                    }
+                }
+            }
+        }
+
+        return Excel::store(new MoviesExport($data), 'movies.csv');                 // save to csv file
     }
 }
